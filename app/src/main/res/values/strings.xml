@@ -11,4 +11,8 @@
     <string name="instruction_text">The Horsemen was the tongue in cheek name given to the government program that placed a series of devices across the world, both in enemy and friendly countries.\n Her position at the table shifted as the program grew more complex; she dropped her feet to the ground and leaned forward, taking in the rapidly changing situation.</string>
     <string name="ShoeList">shoe list</string>
     <string name="LogOut">logout</string>
+    <string name="name">name</string>
+    <string name="shoes_name">Shoes Name</string>
+    <string name="description">description</string>
+    <string name="shoe_name">shoe name</string>
 </resources>
