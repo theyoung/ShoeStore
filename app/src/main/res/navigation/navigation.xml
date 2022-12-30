@@ -39,5 +39,17 @@
             android:id="@+id/action_shoeListFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:popUpTo="@id/loginFragment" />
+        <action
+            android:id="@+id/action_shoeListFragment_to_shoeEditFragment"
+            app:destination="@id/shoeEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoeEditFragment"
+        android:name="com.udacity.shoestore.ShoeEditFragment"
+        android:label="ShoeEditFragment" >
+        <argument
+            android:name="shoeNumber"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

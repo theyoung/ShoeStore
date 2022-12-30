@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.udacity.shoestore.databinding.FragmentInstructionBinding
 import com.udacity.shoestore.databinding.FragmentShoeDetailBinding
 import com.udacity.shoestore.databinding.FragmentShoeListBinding
@@ -26,6 +27,12 @@ class ShoeListFragment : Fragment(){
     private lateinit var inflater : LayoutInflater
     private lateinit var parentView : ViewGroup
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        this.viewModel = ViewModelProvider(requireActivity())[ShoeListViewModel::class.java] as ShoeListViewModel
+        preloadData()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,14 +41,13 @@ class ShoeListFragment : Fragment(){
         this.binding = DataBindingUtil.inflate(inflater, R.layout.fragment_shoe_list, container, false)
         this.inflater = inflater
         this.parentView = binding.scrollList;
-        this.viewModel = ViewModelProvider(requireActivity())[ShoeListViewModel::class.java] as ShoeListViewModel
 
         (requireActivity() as MainActivity).showMenu()
 
         viewModel.liveData.observe(viewLifecycleOwner, Observer {
             refreshList()
         })
-        preloadData()
+
         return binding.root
     }
     private fun preloadData() {
@@ -60,10 +66,15 @@ class ShoeListFragment : Fragment(){
     fun refreshList(){
         parentView.removeAllViews()
 
-        for(shoe: Shoe in viewModel.list){
+        for(i in 0 until viewModel.list.size){
+            var shoe : Shoe = viewModel.list[i]
             var shoeBind : FragmentShoeDetailBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_shoe_detail, this.parentView, false)
             shoeBind.shoe = shoe;
             parentView.addView(shoeBind.root);
+            shoeBind.root.setOnClickListener {
+                val action = ShoeListFragmentDirections.actionShoeListFragmentToShoeEditFragment(i)
+                findNavController().navigate(action)
+            }
             shoeBind.invalidateAll()
         }
 
