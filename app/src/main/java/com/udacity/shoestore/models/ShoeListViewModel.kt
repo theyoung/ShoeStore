@@ -1,6 +1,7 @@
 package com.udacity.shoestore.models
 
 import android.os.Parcelable
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class ShoeListViewModel : ViewModel() {
@@ -11,8 +12,15 @@ class ShoeListViewModel : ViewModel() {
     }
 
     val list : MutableList<Shoe> = ArrayList<Shoe>()
+    val liveData : MutableLiveData<MutableList<Shoe>> = MutableLiveData<MutableList<Shoe>>()
+
+    init {
+        liveData.value = list
+    }
+
     public fun addShoe(shoe: Shoe){
         list.add(shoe)
+        liveData.value = list;
     }
 
     class Builder {
