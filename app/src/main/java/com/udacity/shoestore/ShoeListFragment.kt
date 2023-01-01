@@ -26,11 +26,12 @@ class ShoeListFragment : Fragment(){
     private lateinit var viewModel : ShoeListViewModel
     private lateinit var inflater : LayoutInflater
     private lateinit var parentView : ViewGroup
+    private val newValue : Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.viewModel = ViewModelProvider(requireActivity())[ShoeListViewModel::class.java] as ShoeListViewModel
-        preloadData()
+//        preloadData()
     }
 
     override fun onCreateView(
@@ -47,7 +48,10 @@ class ShoeListFragment : Fragment(){
         viewModel.liveData.observe(viewLifecycleOwner, Observer {
             refreshList()
         })
-
+        binding.floatingActionButton.setOnClickListener {
+            val action = ShoeListFragmentDirections.actionShoeListFragmentToShoeEditFragment(newValue)
+            findNavController().navigate(action)
+        }
         return binding.root
     }
     private fun preloadData() {

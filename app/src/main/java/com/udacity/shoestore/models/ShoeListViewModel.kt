@@ -19,7 +19,8 @@ class ShoeListViewModel : ViewModel() {
     }
 
     public fun addShoe(shoe: Shoe){
-        list.add(shoe)
+        val nShoe : Shoe? = shoe
+        list.add(nShoe!!)
         liveData.value = list;
     }
 
